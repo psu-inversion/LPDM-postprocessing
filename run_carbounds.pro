@@ -178,7 +178,7 @@ for j=0,n_elements(info.max_towers)-1 do begin
     ;; Python:
     ;; 2 week lag with 35 particles/time step, 20s time step, 27 km grid uses about 6GB and 20 hours (probably)
     ;; no idea how to generalize that.
-    printf,lun,"#PBS -l nodes=1"
+    printf,lun,"#PBS -l nodes=1:ppn=4"
     printf,lun,"#PBS -M dfw5129@psu.edu"
     printf,lun,"#PBS -m bae"
     printf,lun,"#"
@@ -187,11 +187,12 @@ for j=0,n_elements(info.max_towers)-1 do begin
     printf,lun,"#"
     printf,lun,"cd /home/mc2/dfw5129/LPDM/"
     printf,lun,". ~/LPDM.intel"
-    printf,lun,"module switch python/3.4.0"
-    printf,lun,". ~/python34"
-    printf,lun,"python3.4 carsurf_loop.py '"+info.outdir+"input_"+strtrim(info.year,1)+"_M"+input.month+"_G"+strtrim(group+1,1)+".sav'"
+    printf,lun,". ~/anaconda36"
+    printf,lun,"module list"
+    printf,lun,"export OMP_NUM_THREADS=4"
+    printf,lun,"python3 carsurf_loop.py '"+info.outdir+"input_"+strtrim(info.year,1)+"_M"+input.month+"_G"+strtrim(group+1,1)+".sav'"
     free_lun,lun
-    print,"Using python3.4"
+    print,"Using python3.6"
 end
 
 
