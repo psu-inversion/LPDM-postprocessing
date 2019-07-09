@@ -126,21 +126,21 @@ for i=0,13 do if ((i+11) mod 12)+1 lt 10 then month(i)='0'+month(i)
 for j=0,n_elements(info.max_towers)-1 do begin
 
     openw,lun,'Sub_Carb_'+info.run+'_'+strtrim(info.year,1)+'_M'+month(info.month)+'_G'+strtrim(j+1,1)+'.csh',/get_lun
-    printf,lun,"#!/bin/tcsh"
+    printf,lun,"#!/bin/bash"
     printf,lun,"#"
     printf,lun,"# Example PBS script to run a job on the mc1 cluster."
     printf,lun,"# The lines beginning #PBS set various queuing parameters."
     printf,lun,"#"
     printf,lun,"#PBS -N CARB_"+info.run+"_"+strtrim(info.year,1)+"_M"+month(info.month)+"_G"+strtrim(j+1,1)
-    printf,lun,"#PBS -e /home/mc2/dfw5129/LPDM/logCarbound"+strtrim(info.year,1)+"_M"+month(info.month)+"_G"+strtrim(j+1,1)+".e"
-    printf,lun,"#PBS -o /home/mc2/dfw5129/LPDM/logCarbound"+strtrim(info.year,1)+"_M"+month(info.month)+"_G"+strtrim(j+1,1)+".o"
+    printf,lun,"#PBS -e logCarbound"+strtrim(info.year,1)+"_M"+month(info.month)+"_G"+strtrim(j+1,1)+".e"
+    printf,lun,"#PBS -o logCarbound"+strtrim(info.year,1)+"_M"+month(info.month)+"_G"+strtrim(j+1,1)+".o"
     printf,lun,"#PBS -l nodes=1:ppn=8"
     printf,lun,"#PBS -m bea"
     printf,lun,"#"
     printf,lun,"# o Export all my environment variables to the job"
     printf,lun,"#PBS -V"
     printf,lun,"#"
-    printf,lun,"cd /home/mc2/dfw5129/LPDM/"
+    printf,lun,"# cd ~/LPDM/"
     printf,lun,"idl << EOF"
     printf,lun,".comp carbounds_loop"
     printf,lun,".comp carbounds_loop"
@@ -167,14 +167,14 @@ for i=0,13 do if ((i+11) mod 12)+1 lt 10 then month(i)='0'+month(i)
 for j=0,n_elements(info.max_towers)-1 do begin
 
     openw,lun,'Sub_Cars_'+info.run+'_'+strtrim(info.year,1)+'_M'+month(info.month)+'_G'+strtrim(j+1,1)+'.csh',/get_lun
-    printf,lun,"#!/bin/tcsh"
+    printf,lun,"#!/bin/bash"
     printf,lun,"#"
     printf,lun,"# Example PBS script to run a job on the mc1 cluster."
     printf,lun,"# The lines beginning #PBS set various queuing parameters."
     printf,lun,"#"
     printf,lun,"#PBS -N CARS_"+info.run+"_"+strtrim(info.year,1)+"_M"+month(info.month)+"_G"+strtrim(j+1,1)
-    printf,lun,"#PBS -e /home/mc2/dfw5129/LPDM/logCarsurf"+strtrim(info.year,1)+"_M"+month(info.month)+"_G"+strtrim(j+1,1)+".e"
-    printf,lun,"#PBS -o /home/mc2/dfw5129/LPDM/logCarsurf"+strtrim(info.year,1)+"_M"+month(info.month)+"_G"+strtrim(j+1,1)+".o"
+    printf,lun,"#PBS -e logCarsurf"+strtrim(info.year,1)+"_M"+month(info.month)+"_G"+strtrim(j+1,1)+".e"
+    printf,lun,"#PBS -o logCarsurf"+strtrim(info.year,1)+"_M"+month(info.month)+"_G"+strtrim(j+1,1)+".o"
     ;; Python:
     ;; 2 week lag with 35 particles/time step, 20s time step, 27 km grid uses about 6GB and 20 hours (probably)
     ;; no idea how to generalize that.
@@ -185,8 +185,8 @@ for j=0,n_elements(info.max_towers)-1 do begin
     printf,lun,"# o Export all my environment variables to the job"
     printf,lun,"#PBS -V"
     printf,lun,"#"
-    printf,lun,"cd /home/mc2/dfw5129/LPDM/"
-    printf,lun,". ~/LPDM.intel"
+    printf,lun,"# cd ~/LPDM/"
+    ;; printf,lun,". ~/LPDM.intel"
     printf,lun,". ~/anaconda36"
     printf,lun,"module list"
     printf,lun,"export OMP_NUM_THREADS=4"
