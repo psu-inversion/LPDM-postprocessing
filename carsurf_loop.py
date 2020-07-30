@@ -313,7 +313,7 @@ def set_global_attributes(ds):
         date=RUN_DATE, acdd_format=ACDD_DATE)
     ds.date_metadata_modified = "{date:{acdd_format}}".format(
         date=RUN_DATE, acdd_format=ACDD_DATE)
-    ds.product_version = "Py_v0.0.4"
+    ds.product_version = "Py_v1.0.0"
     ds.references = """Uliasz, M. 1994. Lagrangian particle dispersion modeling in mesoscale applications. Environ Model: Comput Methods and Softw for Simulat Environ Pollut and its Adverse Effects (CMP) 2 : 71-."""
 
     ds.geospatial_vertical_min = 0
@@ -579,7 +579,7 @@ def set_up_file(ds, total_sites, footprint_nbins,
         # around 5e3.  35*180 particles/obs_time, 9 files/flux_time on 81km grid
         # We have a factor of six wiggle room with i2
         # u2 may be necessary for 3 hourly 243 km fluxes
-        # or more particles/obs_time
+        # or more particles/obs_time0
         "H", "i2",
         ("observation_time", "site", "time_before_observation",
          "dim_y", "dim_x"),
